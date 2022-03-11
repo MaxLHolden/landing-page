@@ -22,7 +22,8 @@
  * Define Global Variables
  * 
 */
-
+this.pageSections =  document.querySelectorAll('[data-nav]');
+this.navbarList =  document.querySelector('#navbar__list');
 
 /**
  * End Global Variables
@@ -30,7 +31,13 @@
  * 
 */
 
-
+function onNavButtonClick(section)
+{
+    section.preventDefault();
+    // let id = targetElement.id;
+    section.scrollIntoView();
+    console.log("On nav Clicked");``
+}
 
 /**
  * End Helper Functions
@@ -40,6 +47,19 @@
 
 // build the nav
 
+for(section of pageSections)
+{
+    let li = document.createElement('li');
+    let navText = section.getAttribute("data-nav");
+    // let link = document.createElement('a');
+    // link.href = "#" + container.id;
+    let navButton = document.createElement('button');
+    navButton.textContent = navText;
+    navButton.addEventListener("click", this.onNavButtonClick)
+    // link.appendChild(navButton);
+    li.appendChild(navButton);
+    this.navbarList.appendChild(li);
+}
 
 // Add class 'active' to section when near top of viewport
 
