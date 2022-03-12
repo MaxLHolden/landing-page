@@ -31,12 +31,12 @@ this.navbarList =  document.querySelector('#navbar__list');
  * 
 */
 
-function onNavButtonClick(section)
+function onNavButtonClick(event)
 {
-    section.preventDefault();
-    // let id = targetElement.id;
-    section.scrollIntoView();
-    console.log("On nav Clicked");``
+    event.preventDefault();
+    event.currentTarget.section.scrollIntoView();
+    document.getElementById(section.innerHtml);
+    console.log("On nav Clicked");
 }
 
 /**
@@ -51,13 +51,12 @@ for(section of pageSections)
 {
     let li = document.createElement('li');
     let navText = section.getAttribute("data-nav");
-    // let link = document.createElement('a');
-    // link.href = "#" + container.id;
     let navButton = document.createElement('button');
+    navButton.section = section;
     navButton.textContent = navText;
-    navButton.addEventListener("click", this.onNavButtonClick)
-    // link.appendChild(navButton);
     li.appendChild(navButton);
+    navButton.addEventListener("click", this.onNavButtonClick, true)
+
     this.navbarList.appendChild(li);
 }
 
