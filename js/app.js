@@ -34,24 +34,38 @@ this.navbarList =  document.querySelector('#navbar__list');
 function onNavButtonClick(event)
 {
     event.preventDefault();
-    event.currentTarget.section.scrollIntoView();
-    document.getElementById(section.innerHtml);
-    console.log("On nav Clicked");
+    event.currentTarget.section.scrollIntoView({behavior:"smooth"});
 }
-
+function manageActive(event)
+{
+    for(section of pageSections)
+    {
+        let sectionBounds = section.getBoundingClientRect();
+        if(sectionBounds.bottom <= document.documentElement.clientHeight)
+        {
+            section.classList.add("your-active-class");
+        }
+        else
+        {
+            section.classList.remove("your-active-class");
+        }
+    }
+    console.log("Hello");
+}
 /**
  * End Helper Functions
  * Begin Main Functions
  * 
 */
 
-// build the nav
-
+window.addEventListener("scroll", this.manageActive);
+// build the nav. Create the list items dynamically from the datanav attributes
 for(section of pageSections)
 {
     let li = document.createElement('li');
     let navText = section.getAttribute("data-nav");
     let navButton = document.createElement('button');
+    navButton.classList = "menu__link"
     navButton.section = section;
     navButton.textContent = navText;
     li.appendChild(navButton);
@@ -61,7 +75,10 @@ for(section of pageSections)
 }
 
 // Add class 'active' to section when near top of viewport
-
+for(section of pageSections)
+{
+    section.addEventListener("scroll", this.manageActive)
+}
 
 // Scroll to anchor ID using scrollTO event
 
