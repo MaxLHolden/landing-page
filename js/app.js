@@ -24,33 +24,52 @@
 */
 this.pageSections =  document.querySelectorAll('[data-nav]');
 this.navbarList =  document.querySelector('#navbar__list');
+this.navbarMenu =  document.querySelector('.navbar__menu');
+window.addEventListener("scroll", this.manageActive);
+
+//every 10 seconds run the hideNav function
+setInterval(hideNav, 10000)
 
 /**
  * End Global Variables
  * Start Helper Functions
  * 
 */
-
+//hide the nav menu
+function hideNav()
+{
+    navbarMenu.style.display = "none"
+}
 function onNavButtonClick(event)
 {
     event.preventDefault();
     event.currentTarget.section.scrollIntoView({behavior:"smooth"});
 }
+
+//set the section-active class when a section is scrolled into the.  Enable to navbar since we are already listening for a scroll event
 function manageActive(event)
 {
+    navbarMenu.style.display = "block"
+
+    var top = document.documentElement.clientHeight;
     for(section of pageSections)
     {
         let sectionBounds = section.getBoundingClientRect();
-        if(sectionBounds.bottom <= document.documentElement.clientHeight)
+        if(sectionBounds.bottom <= top || sectionBounds.top <= top)
         {
-            section.classList.add("your-active-class");
+            section.classList.add("active-section");
         }
         else
         {
-            section.classList.remove("your-active-class");
+            section.classList.remove("active-section");
         }
     }
     console.log("Hello");
+}
+function displayNavBar()
+{
+    hasScrolled = true;
+    
 }
 /**
  * End Helper Functions
@@ -58,7 +77,6 @@ function manageActive(event)
  * 
 */
 
-window.addEventListener("scroll", this.manageActive);
 // build the nav. Create the list items dynamically from the datanav attributes
 for(section of pageSections)
 {
@@ -73,26 +91,4 @@ for(section of pageSections)
 
     this.navbarList.appendChild(li);
 }
-
-// Add class 'active' to section when near top of viewport
-for(section of pageSections)
-{
-    section.addEventListener("scroll", this.manageActive)
-}
-
-// Scroll to anchor ID using scrollTO event
-
-
-/**
- * End Main Functions
- * Begin Events
- * 
-*/
-
-// Build menu 
-
-// Scroll to section on link click
-
-// Set sections as active
-
 
