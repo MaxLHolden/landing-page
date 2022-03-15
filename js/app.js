@@ -40,6 +40,7 @@ function hideNav()
 {
     navbarMenu.style.display = "none"
 }
+
 function onNavButtonClick(event)
 {
     event.preventDefault();
@@ -66,11 +67,7 @@ function manageActive(event)
     }
     console.log("Hello");
 }
-function displayNavBar()
-{
-    hasScrolled = true;
-    
-}
+
 /**
  * End Helper Functions
  * Begin Main Functions
@@ -78,6 +75,7 @@ function displayNavBar()
 */
 
 // build the nav. Create the list items dynamically from the datanav attributes
+//set set the event listener on creation
 for(section of pageSections)
 {
     let li = document.createElement('li');
