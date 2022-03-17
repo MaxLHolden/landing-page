@@ -22,10 +22,10 @@
  * Define Global Variables
  * 
 */
-this.pageSections =  document.querySelectorAll('[data-nav]');
-this.navbarList =  document.querySelector('#navbar__list');
-this.navbarMenu =  document.querySelector('.navbar__menu');
-window.addEventListener("scroll", this.manageActive);
+const pageSections =  document.querySelectorAll('[data-nav]');
+const navbarList =  document.querySelector('#navbar__list');
+const navbarMenu =  document.querySelector('.navbar__menu');
+window.addEventListener("scroll", manageActive);
 
 //every 10 seconds run the hideNav function
 setInterval(hideNav, 10000)
@@ -48,24 +48,23 @@ function onNavButtonClick(event)
 }
 
 //set the section-active class when a section is scrolled into the.  Enable to navbar since we are already listening for a scroll event
-function manageActive(event)
+function manageActive()
 {
     navbarMenu.style.display = "block"
 
-    var top = document.documentElement.clientHeight;
+    const top = document.documentElement.clientHeight;
     for(section of pageSections)
     {
         let sectionBounds = section.getBoundingClientRect();
-        if(sectionBounds.bottom <= top || sectionBounds.top <= top)
+        if(sectionBounds.top <= 1 && sectionBounds.bottom <= top)
         {
-            section.classList.add("active-section");
+            section.classList.add("active__section");
         }
         else
         {
-            section.classList.remove("active-section");
+            section.classList.remove("active__section");
         }
     }
-    console.log("Hello");
 }
 
 /**
@@ -78,15 +77,16 @@ function manageActive(event)
 //set set the event listener on creation
 for(section of pageSections)
 {
-    let li = document.createElement('li');
     let navText = section.getAttribute("data-nav");
     let navButton = document.createElement('button');
     navButton.classList = "menu__link"
     navButton.section = section;
     navButton.textContent = navText;
-    li.appendChild(navButton);
     navButton.addEventListener("click", this.onNavButtonClick, true)
 
-    this.navbarList.appendChild(li);
+    let li = document.createElement('li');
+    li.appendChild(navButton);
+
+    navbarList.appendChild(li);
 }
 
