@@ -52,15 +52,15 @@ function manageActive()
 {
     navbarMenu.style.display = "block"
 
-    const top = document.documentElement.clientHeight;
+    const top = document.documentElement.clientTop;
     for(section of pageSections)
     {
         let sectionBounds = section.getBoundingClientRect();
-        if(sectionBounds.top <= 1 && sectionBounds.bottom <= top)
+        if(sectionBounds.top <= 0 && sectionBounds.top < top)
         {
             section.classList.add("active__section");
         }
-        else
+        if(sectionBounds.bottom <= top || sectionBounds.top > top)
         {
             section.classList.remove("active__section");
         }
